@@ -82,12 +82,13 @@ app.get('/adocoes/:AdocaoID', async(req,res)=>{
   res.status(200).json({adocaoid})
 })
 
-// app.post('/adocoes', async (req,res)=>{
-//   const {} = req.body
-//   const adocoespost = await knexdb('Adocoes').insert({})
+app.post('/adocoes', async (req,res)=>{
+  const {} = req.body
+  const adocoespost = await knexdb('Adocoes').insert({})
 
-//   res.status(200).json({adocoespost})
-// })
+  res.status(200).json({adocoespost})
+})
+
 
 app.delete('/adocoes', async(req,res)=>{
   const {AdocaoID} = req.body
