@@ -14,8 +14,8 @@ res.status(200).json({usuarios})
 
 })
 app.post('/usuarios',async (req,res) =>{
-  const{ AdotanteID,Nome, Email,Telefone, DataNascimento,Endereco,fucionario} = req.body
-  const usuarios = await knexdb('usuarios').insert({ AdotanteID,Nome, Email,Telefone, DataNascimento,Endereco,fucionario})
+  const{ adotanteID,nome, email,telefone,endereco,fucionario} = req.body
+  const usuarios = await knexdb('usuarios').insert({ adotanteID,nome, email,telefone, endereco,fucionario})
   res.status(200).json({usuarios})
 })
 
@@ -82,12 +82,12 @@ app.get('/adocoes/:AdocaoID', async(req,res)=>{
   res.status(200).json({adocaoid})
 })
 
-app.post('/adocoes', async (req,res)=>{
-  const {} = req.body
-  const adocoespost = await knexdb('Adocoes').insert({})
+// app.post('/adocoes', async (req,res)=>{
+//   const {} = req.body
+//   const adocoespost = await knexdb('Adocoes').insert({})
 
-  res.status(200).json({adocoespost})
-})
+//   res.status(200).json({adocoespost})
+// })
 
 
 app.delete('/adocoes', async(req,res)=>{
@@ -96,7 +96,23 @@ app.delete('/adocoes', async(req,res)=>{
   res.send('Adeus')
 })
 
+app.get('/especies',async (req,res)=>{
+  const especie = await knexdb ('especies').select('*')
+  res.status(200).json({especie})
+})
 
+app.post('/especies', async (req,res)=>{
+  const {especies_id,nome_especie} = req.body
+  const especie = await knexdb('especies').insert({especies_id,nome_especie})
+
+  res.status(200).json({especie})
+})
+
+app.delete('/especies', async(req,res)=>{
+  const {especies_id} = req.body
+  const delespecie = await knexdb ('especies').where({especies_id}).del()
+  res.send('Não tem')
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
